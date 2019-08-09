@@ -1,0 +1,16 @@
+version: '2'
+services:
+  futsal-app:
+    image: futsal
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod,swagger
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://futsal-postgresql:5432/futsal
+      - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
+    ports:
+      - 80:80
+  futsal-postgresql:
+    extends:
+      file: postgresql.yml
+      service: futsal-postgresql
