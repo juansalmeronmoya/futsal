@@ -1,0 +1,53 @@
+entity Match {
+	result Result
+}
+
+entity Team {
+	name String
+    color Color required
+}
+
+entity Result {
+	local Integer
+    visitor Integer
+    description String
+}
+
+entity Journey {
+	creationDate Instant
+    closed Boolean
+    selectedSlot TimeSlot
+}
+
+entity TimeSlot {
+	start Instant
+    end Instant
+}
+
+enum Color {
+    RED, BLUE, BLACK, YELLOW, WHITE, ORANGE, PURPLE
+}
+
+relationship ManyToOne {
+	Match{result} to Result,
+    Match{local} to Team,
+    Match{visitor} to Team,
+    Match to Journey
+}
+
+relationship ManyToMany {
+	User to Team,
+    Journey to TimeSlot
+}
+
+// Set pagination options
+paginate Match, Team with pagination
+
+// Use Data Transfert Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl except Employee, Job
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
